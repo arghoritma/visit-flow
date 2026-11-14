@@ -67,12 +67,10 @@ next maintainer — human or AI agent — over cleverness:
 
 ```bash
 # Scaffold a new project (prompts for template, installs deps, creates .env)
-bun create panceg@latest my-app
+git clone https://github.com/arghoritma/panceg.git my-app
 cd my-app
+bun install
 bun run dev          # http://localhost:4000
-
-# Or pick a template directly:
-bun create panceg@latest my-app --template svelte-tailwind
 ```
 
 ### Templates
@@ -418,7 +416,6 @@ which is imported before `styles.css` in `app.ts`.
 - **Bun 1.4+ required** — avatar upload uses `Bun.Image` (decode, resize,
   re-encode to WebP), which is only available in Bun 1.4+. The `bun`
   engine constraint in `package.json` enforces this.
-
 - **Hono integration gotchas handled**: Hono converts HEAD requests to GET
   (body stripped, headers kept) while `c.req.method` still reports "HEAD" —
   the tus `dispatch` uses that to route HEAD correctly; `c.header()`-queued
