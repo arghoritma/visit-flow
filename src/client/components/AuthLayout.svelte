@@ -10,9 +10,9 @@
       <div class="absolute -right-24 -top-20 h-72 w-72 rounded-full bg-[#e0a644]/25 blur-3xl"></div>
       <Brand href="/" class="relative text-[#fff8ea] [&_svg]:text-[#e0a644]" />
       <div class="relative max-w-[350px] max-lg:mt-20">
-        <p class="m-0 text-xs font-bold uppercase tracking-[0.18em] text-[#f4cc83]">Panceg foundation</p>
-        <h2 class="mb-0 mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.05em]">Start with less noise.</h2>
-        <p class="mb-0 mt-5 text-sm leading-6 text-[#dbc7a7]">A dependable base for the work you are ready to make your own.</p>
+        <p class="m-0 text-xs font-bold uppercase tracking-[0.18em] text-[#f4cc83]">Visit Flow</p>
+        <h2 class="mb-0 mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.05em]">Catat setiap kunjungan.</h2>
+        <p class="mb-0 mt-5 text-sm leading-6 text-[#dbc7a7]">Rencanakan, cari, dan pantau status kunjungan tim lapangan di satu tempat.</p>
       </div>
       <p class="relative mb-0 mt-12 text-xs text-[#cdb58e] max-lg:hidden">Bun · Hono · Svelte · SQLite</p>
     </section>

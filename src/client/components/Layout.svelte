@@ -20,9 +20,9 @@
 
   const NAV_ITEMS: NavItem[] = [
     {
-      href: '/dashboard',
-      label: 'Dashboard',
-      match: (p) => p === '/dashboard' || p.startsWith('/dashboard'),
+      href: '/visits',
+      label: 'Kunjungan',
+      match: (p) => p === '/visits' || p.startsWith('/visits'),
     },
     {
       href: '/profile',
@@ -154,7 +154,7 @@
     <div
       class="flex items-center justify-between gap-2 px-5 h-[4.5rem] shrink-0"
     >
-      <Brand href={user ? '/dashboard' : '/login'} />
+      <Brand href={user ? '/visits' : '/login'} />
       <button
         type="button"
         class="hidden items-center justify-center w-9 h-9 border border-border rounded-lg bg-transparent text-text cursor-pointer max-md:flex"
@@ -195,7 +195,7 @@
               <span
                 class={`inline-flex shrink-0 ${active ? 'text-primary' : 'text-muted'}`}
               >
-                {#if item.href === '/dashboard'}
+                {#if item.href === '/visits'}
                   <svg
                     viewBox="0 0 24 24"
                     width="18"
@@ -207,10 +207,8 @@
                     stroke-linejoin="round"
                     aria-hidden="true"
                   >
-                    <rect x="3" y="3" width="7" height="9" rx="1" />
-                    <rect x="14" y="3" width="7" height="5" rx="1" />
-                    <rect x="14" y="12" width="7" height="9" rx="1" />
-                    <rect x="3" y="16" width="7" height="5" rx="1" />
+                    <path d="M9 11.25 11.25 13.5 15 9" />
+                    <path d="M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v14.25l-3.75-2.25-3.75 2.25-3.75-2.25-3.75 2.25V6a2.25 2.25 0 0 1 2.25-2.25Z" />
                   </svg>
                 {:else if item.href === '/profile'}
                   <svg
@@ -269,8 +267,8 @@
 
     <div class="p-3">
       <div class="p-3.5 rounded-2xl bg-primary-soft border border-border">
-        <p class="m-0 text-sm font-bold">Panceg</p>
-        <p class="mt-0.5 text-xs text-muted">Bun · SQLite · Inertia v3</p>
+        <p class="m-0 text-sm font-bold">Visit Flow</p>
+        <p class="mt-0.5 text-xs text-muted">Manajemen kunjungan lapangan</p>
       </div>
     </div>
   </aside>
@@ -482,11 +480,11 @@
                 </div>
                 <div class="h-px bg-border my-1.5"></div>
                 <Link
-                  href="/dashboard"
+                  href="/profile"
                   class="flex items-center gap-2 w-full px-2.5 py-2 rounded-lg bg-transparent text-text text-sm text-left cursor-pointer transition-colors hover:bg-primary-soft hover:no-underline"
                   role="menuitem"
                 >
-                  Dashboard
+                  Profil
                 </Link>
                 {#if user.role === 'admin'}
                   <Link
@@ -568,7 +566,7 @@
     <footer
       class="mt-auto px-5 py-4 flex items-center justify-between gap-3 text-muted text-xs dark:text-[#b6bdcb] max-md:px-4 max-md:py-3"
     >
-      <span>Panceg foundation</span>
+      <span>Visit Flow</span>
       <span>Bun · Hono · bun:sqlite · Inertia v3</span>
     </footer>
   </div>

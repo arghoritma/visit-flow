@@ -22,6 +22,7 @@
     "start": "NODE_ENV=production bun run src/index.ts",
     "start:api": "NODE_ENV=production bun run src/api.ts",
     "db:seed": "bun run scripts/seed.ts",
+    "db:seed:visit-flow": "bun run scripts/seed-visit-flow.ts",
     "db:make": "bun run scripts/create-migration.ts",
     "db:migrate": "MIGRATIONS_MODE=cli bun run scripts/migrate.ts up",
     "db:status": "MIGRATIONS_MODE=cli bun run scripts/migrate.ts status",

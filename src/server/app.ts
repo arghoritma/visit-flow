@@ -28,6 +28,11 @@ import { googleOauthRoutes } from "./routes/google-oauth.routes";
 import { pageRoutes } from "./routes/pages.routes";
 import { apiRoutes } from "./routes/api.routes";
 import {
+  activitiesRoutes,
+  ACTIVITY_VALIDATION_MESSAGES,
+} from "./routes/activities.routes";
+import { entitiesRoutes } from "./routes/entities.routes";
+import {
   profileRoutes,
   PROFILE_VALIDATION_MESSAGES,
 } from "./routes/profile.routes";
@@ -50,12 +55,14 @@ const COMPONENT_BY_PATH: Record<string, string> = {
   "/profile": "Profile",
   "/profile/password": "Profile",
   "/tokens": "Tokens",
+  "/visits": "Visits",
 };
 
 const VALIDATION_MESSAGES_ALL = {
   ...VALIDATION_MESSAGES,
   ...PROFILE_VALIDATION_MESSAGES,
   ...TOKEN_VALIDATION_MESSAGES,
+  ...ACTIVITY_VALIDATION_MESSAGES,
 };
 
 const isUploadsPath = (pathname: string) =>
@@ -265,6 +272,8 @@ export function createApp(assets: InertiaAssets) {
   app.route("/", pageRoutes());
   app.route("/", profileRoutes());
   app.route("/", tokensRoutes());
+  app.route("/", activitiesRoutes());
+  app.route("/", entitiesRoutes());
 
   return app;
 }

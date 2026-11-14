@@ -26,7 +26,7 @@ export interface RateLimitOptions {
    * limiters mounted on Hono sub-apps: `app.route("/", subApp)` runs the
    * sub-app's `app.use()` middleware for EVERY path under the mount point,
    * so without a path filter an "auth" limiter also throttles unrelated
-   * pages (/, /dashboard, …). Verified bug 2026-08-10 — 30 page loads per
+   * pages (/, /visits, …). Verified bug 2026-08-10 — 30 page loads per
    * minute per IP returned 429 site-wide.
    */
   paths?: string[];

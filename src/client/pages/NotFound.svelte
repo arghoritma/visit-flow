@@ -10,10 +10,10 @@
   <p class="text-muted">The page you are looking for does not exist.</p>
   <p>
     <Link
-      href="/dashboard"
+      href="/visits"
       class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 border border-primary rounded-lg bg-primary text-white font-semibold text-sm cursor-pointer transition-colors hover:bg-primary-hover hover:border-primary-hover hover:no-underline"
     >
-      Go to dashboard
+      Go to visits
     </Link>
   </p>
 </Layout>

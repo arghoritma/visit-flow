@@ -342,16 +342,16 @@ export const requireApiAuth = async (c: Context<AppEnv>, next: Next) => {
 };
 
 export const guestOnly = async (c: Context<AppEnv>, next: Next) => {
-  if (c.var.user) return redirectTo(c.req.raw, "/dashboard");
+  if (c.var.user) return redirectTo(c.req.raw, "/visits");
   return next();
 };
 
-/** Guard factory: e.g. `requireRole('admin')` — non-admins go to /dashboard. */
+/** Guard factory: e.g. `requireRole('admin')` — non-admins go to /visits. */
 export const requireRole =
   (...roles: Role[]) =>
   async (c: Context<AppEnv>, next: Next) => {
     if (!c.var.user) return redirectTo(c.req.raw, "/login");
     if (!roles.includes(c.var.user.role))
-      return redirectTo(c.req.raw, "/dashboard");
+      return redirectTo(c.req.raw, "/visits");
     return next();
   };

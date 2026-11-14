@@ -82,7 +82,7 @@ const server = Bun.serve({
   port,
   fetch: createApp(assets).fetch,
 });
-console.log(`Panceg → http://${config.host}:${port}`);
+console.log(`Visit Flow → http://${config.host}:${port}`);
 
 function shutdown(signal: string): void {
   console.log(`\n${signal} received — shutting down`);

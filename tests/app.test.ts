@@ -92,13 +92,17 @@ async function registerUser(
 }
 
 describe("auth basics", () => {
-  it("renders / as a public page for guests (CDN-cacheable)", async () => {
+  it("redirects / to /login for guests", async () => {
     const res = await call("/");
-    expect(res.status).toBe(200);
-    expect(res.headers.get("content-type")).toContain("text/html");
-    // Public pages get CDN cache headers (not private/no-store)
-    expect(res.headers.get("cache-control")).toContain("public");
-    expect(res.headers.get("cache-control")).toContain("s-maxage");
+    expect(res.status).toBe(302);
+    expect(new URL(res.headers.get("location")!).pathname).toBe("/login");
+  });
+
+  it("redirects / to /visits for authenticated users", async () => {
+    const cookie = await registerUser("root-redirect@example.com");
+    const res = await call("/", { headers: { cookie } });
+    expect(res.status).toBe(302);
+    expect(new URL(res.headers.get("location")!).pathname).toBe("/visits");
   });
 
   it("registers a user, creates a session cookie", async () => {
@@ -112,7 +116,7 @@ describe("auth basics", () => {
       },
     });
     expect(res.status).toBe(303);
-    expect(new URL(res.headers.get("location")!).pathname).toBe("/dashboard");
+    expect(new URL(res.headers.get("location")!).pathname).toBe("/visits");
     expect(res.headers.get("set-cookie")).toContain("session=");
     expect(res.headers.get("set-cookie")).toContain("HttpOnly");
   });
@@ -154,7 +158,7 @@ describe("auth basics", () => {
     expect((await page(res)).props.errors.password).toContain("Don't Match.");
   });
 
-  it("logs in and reaches the dashboard with the user in props", async () => {
+  it("logs in and reaches /visits with the user in props", async () => {
     await registerUser("loginok@example.com");
     const res = await call("/login", {
       method: "POST",
@@ -165,17 +169,17 @@ describe("auth basics", () => {
     const cookie = sessionCookie(res);
     expect(cookie).not.toBe("");
 
-    const dash = await call("/dashboard", { headers: { ...xhr, cookie } });
-    expect(dash.status).toBe(200);
-    const data = await page(dash);
-    expect(data.component).toBe("Dashboard");
+    const visits = await call("/visits", { headers: { ...xhr, cookie } });
+    expect(visits.status).toBe(200);
+    const data = await page(visits);
+    expect(data.component).toBe("Visits");
     expect(data.props.auth.user.email).toBe("loginok@example.com");
     // password hashes must never reach the client
     expect(JSON.stringify(data.props)).not.toContain("passwordHash");
   });
 
-  it("protects the dashboard without a session", async () => {
-    const res = await call("/dashboard");
+  it("protects /visits without a session", async () => {
+    const res = await call("/visits");
     expect(res.status).toBe(302);
     expect(new URL(res.headers.get("location")!).pathname).toBe("/login");
   });
@@ -184,7 +188,7 @@ describe("auth basics", () => {
     const cookie = await registerUser("guestguard@example.com");
     const res = await call("/login", { headers: { cookie } });
     expect(res.status).toBe(302);
-    expect(new URL(res.headers.get("location")!).pathname).toBe("/dashboard");
+    expect(new URL(res.headers.get("location")!).pathname).toBe("/visits");
   });
 
   it("logs out: session is destroyed server-side", async () => {
@@ -196,7 +200,7 @@ describe("auth basics", () => {
     expect(res.status).toBe(303);
     expect(new URL(res.headers.get("location")!).pathname).toBe("/login");
 
-    const after = await call("/dashboard", { headers: { cookie } });
+    const after = await call("/visits", { headers: { cookie } });
     expect(after.status).toBe(302); // stale cookie no longer authenticates
   });
 
@@ -223,12 +227,12 @@ describe("auth basics", () => {
 describe("inertia protocol", () => {
   it("returns 409 + X-Inertia-Location on version mismatch", async () => {
     const cookie = await registerUser("version@example.com");
-    const res = await call("/dashboard", {
+    const res = await call("/visits", {
       headers: { ...xhr, cookie, "x-inertia-version": "stale" },
     });
     expect(res.status).toBe(409);
     expect(res.headers.get("x-inertia-location")).toBe(
-      "http://localhost:3000/dashboard",
+      "http://localhost:3000/visits",
     );
   });
 
@@ -276,7 +280,7 @@ describe("inertia protocol", () => {
 
   it("skips SSR for authenticated routes (client-only render)", async () => {
     const cookie = await registerUser("nossr@example.com");
-    const res = await call("/dashboard", { headers: { cookie } });
+    const res = await call("/visits", { headers: { cookie } });
     expect(res.status).toBe(200);
     const html = await res.text();
     // No server-rendered HTML — client mounts from scratch via JSON payload.
@@ -299,7 +303,7 @@ describe("roles & admin", () => {
     const cookie = await registerUser("normal@example.com");
     const res = await call("/admin", { headers: { cookie } });
     expect(res.status).toBe(302);
-    expect(new URL(res.headers.get("location")!).pathname).toBe("/dashboard");
+    expect(new URL(res.headers.get("location")!).pathname).toBe("/visits");
   });
 
   it("serves paginated users to admins", async () => {

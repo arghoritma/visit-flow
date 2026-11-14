@@ -243,12 +243,12 @@ export class Inertia {
   private html(head: string[], body: string, status: number): Response {
     const headTags = head.filter((h) => h && h.trim().length > 0);
     const hasTitle = headTags.some((h) => h.includes("<title"));
-    const titleTag = hasTitle ? "" : "<title>Panceg</title>";
+    const titleTag = hasTitle ? "" : "<title>Visit Flow</title>";
     const cssTag = this.assets.css
       ? `<link rel="stylesheet" href="/assets/${this.assets.css}" />`
       : "";
     const favicon = `<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#b7791f"/><path d="M17.8 5.6 8.4 18h5.2l-1.2 8.4 9.2-12h-5.2z" fill="white"/></svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#b7791f"/><path d="M9 17.5 13.5 22 23 10" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
     )}" />`;
     // Inline script: set data-theme + background-color on <html> before the
     // external stylesheet loads, so the page paints dark immediately (no FOUC).

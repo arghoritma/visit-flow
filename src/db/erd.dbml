@@ -1,5 +1,24 @@
 // Generated from the migrated SQLite schema. Do not edit manually.
 
+Table activities {
+  id text [pk]
+  entity_id text [not null]
+  segment text [not null]
+  visit_date text [not null]
+  status text [not null]
+  sales_name text [not null]
+  created_by text
+  created_at text [not null]
+  updated_at text [not null]
+
+  indexes {
+    visit_date [name: 'idx_activities_visit_date']
+    segment [name: 'idx_activities_segment']
+    status [name: 'idx_activities_status']
+    entity_id [name: 'idx_activities_entity_id']
+  }
+}
+
 Table api_tokens {
   id text [pk]
   user_id text [not null]
@@ -24,6 +43,20 @@ Table email_verifications {
 
   indexes {
     user_id [name: 'idx_email_verifications_user_id']
+  }
+}
+
+Table entities {
+  id text [pk]
+  name text [not null]
+  type text [not null]
+  segment text [not null]
+  region text [not null]
+  created_at text [not null]
+
+  indexes {
+    segment [name: 'idx_entities_segment']
+    name, type [unique, name: 'idx_entities_name_type']
   }
 }
 
@@ -74,7 +107,7 @@ Table users {
   role text [not null]
   google_id text
   avatar_url text
-  s created_at text [not null]
+  created_at text [not null]
   email_verified integer [not null]
 
   indexes {
@@ -82,6 +115,10 @@ Table users {
     google_id [unique, name: 'idx_users_google_id', note: 'partial index']
   }
 }
+
+Ref: activities.created_by > users.id
+
+Ref: activities.entity_id > entities.id
 
 Ref: api_tokens.user_id > users.id
 

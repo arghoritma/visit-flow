@@ -185,7 +185,7 @@ export const googleOauthRoutes = () => {
       }
       const session = createSession(user.id);
       setSessionCookie(c, session.token, session.expiresAt);
-      return Response.redirect(new URL("/dashboard", url).toString());
+      return Response.redirect(new URL("/visits", url).toString());
     } catch (err) {
       console.error("[google-oauth]", err);
       return Response.redirect(

@@ -19,7 +19,7 @@
 <AuthLayout>
   <p class="m-0 text-xs font-bold uppercase tracking-[0.16em] text-primary">Welcome back</p>
   <h1 class="mb-2 mt-3 text-[2rem] font-bold leading-none tracking-tight">Continue your work.</h1>
-  <p class="text-muted mb-7">Log in to return to your Panceg workspace.</p>
+  <p class="text-muted mb-7">Masuk untuk melanjutkan ke Visit Flow.</p>
 
   {#if notice}
     <div

@@ -99,8 +99,8 @@ export const apiRoutes = () => {
     await sendMail({
       to: body.email,
       subject: "Verify your email",
-      text: `Welcome to Panceg!\n\nPlease verify your email address:\n${link}\n\nThis link expires in 24 hours.`,
-      html: `<p>Welcome to Panceg!</p><p><a href="${link}">Verify your email</a></p><p>This link expires in 24 hours.</p>`,
+      text: `Welcome to Visit Flow!\n\nPlease verify your email address:\n${link}\n\nThis link expires in 24 hours.`,
+      html: `<p>Welcome to Visit Flow!</p><p><a href="${link}">Verify your email</a></p><p>This link expires in 24 hours.</p>`,
     }).catch((err) =>
       console.error("[mail] failed to send verification email:", err),
     );

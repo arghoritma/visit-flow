@@ -159,12 +159,12 @@ export const authRoutes = () => {
     await sendMail({
       to: body.email,
       subject: "Verify your email",
-      text: `Welcome to Panceg!\n\nPlease verify your email address:\n${link}\n\nThis link expires in 24 hours.`,
-      html: `<p>Welcome to Panceg!</p><p><a href="${link}">Verify your email</a></p><p>This link expires in 24 hours.</p>`,
+      text: `Welcome to Visit Flow!\n\nPlease verify your email address:\n${link}\n\nThis link expires in 24 hours.`,
+      html: `<p>Welcome to Visit Flow!</p><p><a href="${link}">Verify your email</a></p><p>This link expires in 24 hours.</p>`,
     }).catch((err) =>
       console.error("[mail] failed to send verification email:", err),
     );
-    return page.redirect("/dashboard");
+    return page.redirect("/visits");
   });
 
   app.post("/login", validateJson(loginBody), async (c) => {
@@ -188,7 +188,7 @@ export const authRoutes = () => {
     const session = createSession(user.id);
     setSessionCookie(c, session.token, session.expiresAt);
     setFlash(session.token, { success: `Welcome back, ${user.name}!` });
-    return page.redirect("/dashboard");
+    return page.redirect("/visits");
   });
 
   app.post("/logout", requireAuth, (c) => {

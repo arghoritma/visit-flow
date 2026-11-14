@@ -33,12 +33,6 @@ export interface SharedPageProps {
 	errors: Record<string, string>;
 }
 
-/** Props for the dashboard page. */
-export interface DashboardStats {
-	userCount: number;
-	recentUsers: User[];
-}
-
 /** A personal API token as exposed to the dashboard (never the raw value
  *  or its hash — the raw token is returned only once at creation). */
 export interface ApiToken {
@@ -61,4 +55,37 @@ export interface Paginated<T> {
 		lastPage: number;
 		total: number;
 	};
+}
+
+/** Visit Flow: business segment for an entity/activity. */
+export type Segment = "B2G" | "B2B";
+
+/** Visit Flow: lifecycle status of a visit activity. */
+export type VisitStatus = "NOT_VISITED" | "VISITED";
+
+/** Visit Flow: a visit-target entity (master data, e.g. an office or company). */
+export interface Entity {
+	id: string;
+	name: string;
+	/** Distinguishes entities with a similar name, e.g. "Instansi", "Perusahaan". */
+	type: string;
+	segment: Segment;
+	region: string;
+	createdAt: string;
+}
+
+/** Visit Flow: a visit plan/record against an entity. */
+export interface Activity {
+	id: string;
+	entityId: string;
+	entityName: string;
+	entityType: string;
+	segment: Segment;
+	region: string;
+	visitDate: string;
+	status: VisitStatus;
+	/** Point-plus requirement: the sales person who made/owns the visit. */
+	salesName: string;
+	createdAt: string;
+	updatedAt: string;
 }

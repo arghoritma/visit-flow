@@ -17,7 +17,7 @@
     aria-hidden="true"
   >
     <rect width="32" height="32" rx="8" fill="currentColor" />
-    <path d="M17.8 5.6 8.4 18h5.2l-1.2 8.4 9.2-12h-5.2z" fill="white" />
+    <path d="M9 17.5 13.5 22 23 10" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
   </svg>
-  <span>Panceg</span>
+  <span>Visit Flow</span>
 </Link>

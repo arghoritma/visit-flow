@@ -494,7 +494,7 @@ describe("profile page & avatar upload", () => {
     expect(res.status).toBe(204);
 
     // Shared props expose the new avatar URL.
-    const dash = await tus("/dashboard", {
+    const dash = await tus("/visits", {
       headers: { "x-inertia": "true" },
       cookie,
     });
@@ -627,13 +627,13 @@ describe("google oauth stores a local avatar", () => {
     );
     expect(cb.status).toBe(302);
     expect(new URL(cb.headers.get("location") ?? "").pathname).toBe(
-      "/dashboard",
+      "/visits",
     );
     const cookie = sessionCookie(cb);
     expect(cookie).not.toBe("");
 
     // Shared props carry a local avatar URL, not the external Google URL.
-    const dash = await tus("/dashboard", {
+    const dash = await tus("/visits", {
       headers: { "x-inertia": "true" },
       cookie,
     });
@@ -668,7 +668,7 @@ describe("profile info & password", () => {
     });
     expect(res.status).toBe(303);
 
-    const dash = await tus("/dashboard", {
+    const dash = await tus("/visits", {
       headers: { "x-inertia": "true" },
       cookie,
     });
