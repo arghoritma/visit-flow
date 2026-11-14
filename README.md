@@ -112,10 +112,11 @@ standar.
 
 ```bash
 bun install
-cp .env.example .env          # sudah berisi default yang aman untuk lokal
-bun run db:migrate             # terapkan migrasi 0001–0008
-bun run db:seed                # buat akun demo (lihat §5)
-bun run dev                    # http://localhost:4000
+cp .env.example .env        # sudah berisi default yang aman untuk lokal
+bun run db:migrate          # terapkan migrasi 0001–0008
+bun run db:seed              # buat akun demo (lihat §5)
+bun run db:seed:visit-flow   # seed entities + activities fiktif (lihat §3)
+bun run dev                  # http://localhost:4000
 ```
 
 Jalankan test:
@@ -164,6 +165,18 @@ Dibuat lewat `bun run db:seed [email] [password] [role]` (default
 ```bash
 bun run db:seed demo@example.com password123 user
 ```
+
+Lalu seed data kunjungan fiktif (entities + activities) dengan:
+
+```bash
+bun run db:seed:visit-flow
+```
+
+Jalankan **setelah** `db:seed` — skrip ini mencari user `demo@example.com`
+untuk mengisi `created_by` pada activity yang di-seed (opsional; tanpa
+user ini, activity tetap ter-seed dengan `created_by` bernilai `null`).
+Idempotent: aman dijalankan ulang, entity/activity yang sudah ada tidak
+diduplikasi (lihat komentar di `scripts/seed-visit-flow.ts`).
 
 Login di `http://localhost:4000/login`. Semua endpoint
 `/api/activities*` dan `/api/entities*` memerlukan sesi login
